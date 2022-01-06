@@ -6,62 +6,58 @@ import java.util.Arrays;
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
 
-    public int indexOfResume = 0;
-
-    public int sizeOfArray = 0;
+    public int numberOfResume = 0;
 
     public int size() {
-        while (storage[indexOfResume] != null) {
-            sizeOfArray++;
-        }
-        return sizeOfArray;
+        return numberOfResume;
     }
 
     void clear() {
-        Arrays.fill(storage, 0, sizeOfArray - 1, null);
+        Arrays.fill(storage, 0, numberOfResume, null);
     }
 
     public void save(Resume r) {
-        storage[sizeOfArray] = r;
-        System.out.println("Resume was saved in storage with index " + (sizeOfArray - 1));
-        sizeOfArray++;
+        storage[numberOfResume] = r;
+        System.out.println("Resume was saved in storage with index " + (numberOfResume));
+        numberOfResume++;
     }
 
-    String get(String uuid) {
-        for (int i = 0; i < sizeOfArray; i++) {
+    Resume get(String uuid) {
+        int index = 0;
+        for (int i = 0; i <= numberOfResume - 1; i++) {
             if (storage[i].equals(uuid)) {
-                System.out.println("This resume found in storage");
-                indexOfResume = i;
+                System.out.println("This resume found in storage at index " + i);
+                index = i;
             } else {
                 System.out.println("Resume with this uuid is not found");
             }
         }
-        return String.valueOf(storage[indexOfResume]);
+        return storage[index];
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < sizeOfArray; i++) {
+        int index = 0;
+        for (int i = 0; i <= numberOfResume - 1; i++) {
             if (storage[i].equals(uuid)) {
                 storage[i] = null;
-                indexOfResume = i;
                 System.out.println("Resume with this uuid was deleted from storage");
+                index = i;
                 break;
             } else {
                 System.out.println("Resume with this uuid is not found");
             }
         }
-        while ((indexOfResume + 1) < sizeOfArray) {
-            storage[indexOfResume] = storage[indexOfResume + 1];
-            indexOfResume++;
+        while (index < numberOfResume) {
+            storage[index] = storage[index + 1];
+            index++;
         }
-        sizeOfArray--;
+        numberOfResume--;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] fullStorage = Arrays.copyOf(storage, sizeOfArray);
-        return fullStorage;
+        return Arrays.copyOf(storage, numberOfResume);
     }
 }
