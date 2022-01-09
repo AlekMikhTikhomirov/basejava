@@ -23,35 +23,33 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        int index = 0;
-        for (int i = 0; i <= numberOfResume - 1; i++) {
+        int index;
+        for (int i = 0; i < numberOfResume; i++) {
             if (storage[i].equals(uuid)) {
                 System.out.println("This resume found in storage at index " + i);
                 index = i;
+                return storage[index];
             } else {
                 System.out.println("Resume with this uuid is not found");
             }
         }
-        return storage[index];
+        return null;
     }
 
     void delete(String uuid) {
-        int index = 0;
-        for (int i = 0; i <= numberOfResume - 1; i++) {
+        for (int i = 0; i < numberOfResume; i++) {
             if (storage[i].equals(uuid)) {
-                storage[i] = null;
+                int j = i;
+                for (; j < numberOfResume; j++) {
+                    storage[j] = storage[j + 1];
+                    j++;
+                }
                 System.out.println("Resume with this uuid was deleted from storage");
-                index = i;
-                break;
+                numberOfResume--;
             } else {
                 System.out.println("Resume with this uuid is not found");
             }
         }
-        while (index < numberOfResume) {
-            storage[index] = storage[index + 1];
-            index++;
-        }
-        numberOfResume--;
     }
 
     /**
