@@ -23,12 +23,10 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        int index;
         for (int i = 0; i < numberOfResume; i++) {
             if (storage[i].equals(uuid)) {
                 System.out.println("This resume found in storage at index " + i);
-                index = i;
-                return storage[index];
+                return storage[i];
             } else {
                 System.out.println("Resume with this uuid is not found");
             }
@@ -39,13 +37,13 @@ public class ArrayStorage {
     void delete(String uuid) {
         for (int i = 0; i < numberOfResume; i++) {
             if (storage[i].equals(uuid)) {
-                int j = i;
-                for (; j < numberOfResume; j++) {
+                for (int j = i; j < numberOfResume - 1; j++) {
                     storage[j] = storage[j + 1];
                     j++;
                 }
                 System.out.println("Resume with this uuid was deleted from storage");
                 numberOfResume--;
+                break;
             } else {
                 System.out.println("Resume with this uuid is not found");
             }
